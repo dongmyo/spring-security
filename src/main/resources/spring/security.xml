@@ -18,15 +18,11 @@
         <logout />
     </http>
 
+    <!-- TODO : #7 custom UserDetailsService configuration -->
     <authentication-manager>
-        <authentication-provider>
-            <!-- TODO : #5 jdbc-user-service -->
-            <jdbc-user-service
-                    data-source-ref="dataSource"
-                    users-by-username-query="SELECT MNAME, PWD, TRUE FROM MEMBERS WHERE MNAME = ?"
-                    authorities-by-username-query="SELECT MNAME, AUTHORITY FROM AUTHORITIES WHERE MNAME = ?"
-            />
-        </authentication-provider>
+        <authentication-provider user-service-ref="customUserDetailsService" />
     </authentication-manager>
+
+    <beans:bean id="customUserDetailsService" class="com.nhnent.edu.security.CustomUserDetailsService" />
 
 </beans:beans>
