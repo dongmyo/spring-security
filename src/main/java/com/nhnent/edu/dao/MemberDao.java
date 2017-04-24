@@ -12,12 +12,8 @@ public class MemberDao {
     SqlSessionTemplate sqlSessionTemplate;
 
 
-    public Member exists(String name, String password) {
-        Member member = new Member();
-        member.setName(name);
-        member.setPassword(password);
-
-        return sqlSessionTemplate.selectOne("memberDao.existsMember", member);
+    public Member exists(String name) {
+        return sqlSessionTemplate.selectOne("memberDao.existsMember", name);
     }
 
     public String getAuthority(String name) {
