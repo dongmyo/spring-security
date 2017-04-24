@@ -107,7 +107,6 @@
             <version>${spring-security.version}</version>
         </dependency>
 
-        <!-- TODO : #1 Spring JDBC, dbcp, mybatis -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>

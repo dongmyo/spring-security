@@ -14,15 +14,23 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
-        <form-login />
+        <!-- TODO : #1 커스텀 로그인 -->
+        <form-login
+                login-page="/login/form"
+                username-parameter="name"
+                password-parameter="pwd"
+                login-processing-url="/login/process"
+                authentication-failure-handler-ref="loginFailureHandler"
+        />
         <logout />
     </http>
 
-    <!-- TODO : #7 custom UserDetailsService configuration -->
     <authentication-manager>
         <authentication-provider user-service-ref="customUserDetailsService" />
     </authentication-manager>
 
     <beans:bean id="customUserDetailsService" class="com.nhnent.edu.security.CustomUserDetailsService" />
+
+    <beans:bean id="loginFailureHandler" class="com.nhnent.edu.security.CustomLoginFailureHandler" />
 
 </beans:beans>
