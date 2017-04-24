@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberDao">
+    <!-- TODO : #4 mapper -->
+    <select id="existsMember" resultMap="memberResultMap">
+        SELECT MNAME,PWD FROM MEMBERS WHERE MNAME=#{name} AND PWD=#{password}
+    </select>
+
+    <select id="getAuthority" parameterType="string" resultType="string">
+        SELECT AUTHORITY FROM AUTHORITIES WHERE MNAME=#{name}
+    </select>
+
+    <resultMap type="member" id="memberResultMap">
+        <id property="name" column="MNAME" />
+        <result property="password" column="PWD" />
+    </resultMap>
+
+</mapper>
