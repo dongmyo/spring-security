@@ -18,6 +18,9 @@
     <view-controller path="/public-project/**" view-name="public-project" />
     <redirect-view-controller path="/redirect-index" redirect-url="/" />
 
+    <!-- TODO : #2 로그인 폼 view-controller -->
+    <view-controller path="/login/form" view-name="loginForm" />
+
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/" />
