@@ -6,7 +6,6 @@
                                  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- #TODO 4 : security configuration -->
     <http use-expressions="true">
         <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
         <intercept-url pattern="/public-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
@@ -21,11 +20,12 @@
 
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="admin"  password="12345" authorities="ROLE_ADMIN" />
-                <user name="member" password="67890" authorities="ROLE_MEMBER" />
-                <user name="guest"  password="abcde" authorities="ROLE_GUEST" />
-            </user-service>
+            <!-- TODO : #5 jdbc-user-service -->
+            <jdbc-user-service
+                    data-source-ref="dataSource"
+                    users-by-username-query="SELECT MNAME, PWD, TRUE FROM MEMBERS WHERE MNAME = ?"
+                    authorities-by-username-query="SELECT MNAME, AUTHORITY FROM AUTHORITIES WHERE MNAME = ?"
+            />
         </authentication-provider>
     </authentication-manager>
 

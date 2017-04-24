@@ -12,7 +12,6 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven />
 
-    <!-- # TODO 5 : view-controllers -->
     <view-controller path="/" view-name="index" />
     <view-controller path="/admin/**" view-name="admin" />
     <view-controller path="/project/**" view-name="project" />
