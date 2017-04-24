@@ -80,12 +80,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -121,13 +115,13 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
         </dependency>
 
@@ -161,8 +155,8 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
         <!-- TODO : #1 JDBC, h2 -->
+
         <!-- dbcp -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -205,7 +199,7 @@
 				<version>3.0.0</version>
 			</plugin>
 
-			<!-- embedded tomcat -->
+			<!-- embeded tomcat -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
