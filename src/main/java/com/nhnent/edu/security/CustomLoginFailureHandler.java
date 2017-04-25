@@ -11,9 +11,6 @@ import java.io.IOException;
 public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        /*
-         * TODO : #4 직접 구현해보세요.
-         */
     }
 
 }

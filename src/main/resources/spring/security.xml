@@ -13,8 +13,8 @@
         <intercept-url pattern="/redirect-index"    access="isAuthenticated()" />
         <intercept-url pattern="/**"                access="permitAll()" />
 
-        <csrf disabled="true" />
-        <!-- TODO : #1 커스텀 로그인 -->
+        <!-- TODO : #1 csrf 활성화 -->
+        <csrf />
         <form-login
                 login-page="/login/form"
                 username-parameter="name"
