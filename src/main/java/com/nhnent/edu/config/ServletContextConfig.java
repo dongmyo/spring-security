@@ -1,4 +1,4 @@
-package com.nhnent.edu.security.config;
+package com.nhnent.edu.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,7 +41,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 </beans:beans>
  */
 @Configuration
-@ComponentScan("com.nhnent.edu.security.controller")
+@ComponentScan("com.nhnent.edu.controller")
 @EnableWebMvc
 public class ServletContextConfig extends WebMvcConfigurerAdapter {
     @Override

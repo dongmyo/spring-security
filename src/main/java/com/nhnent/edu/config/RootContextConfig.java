@@ -1,4 +1,4 @@
-package com.nhnent.edu.security.config;
+package com.nhnent.edu.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 </beans>
  */
 @Configuration
-@ComponentScan("com.nhnent.edu.security")
+@ComponentScan("com.nhnent.edu")
 public class RootContextConfig {
 
 }

@@ -13,7 +13,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.nhnent.edu.security.config.RootContextConfig</param-value>
+		<param-value>com.nhnent.edu.config.RootContextConfig</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -41,7 +41,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>com.nhnent.edu.security.config.ServletContextConfig</param-value>
+			<param-value>com.nhnent.edu.config.ServletContextConfig</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
