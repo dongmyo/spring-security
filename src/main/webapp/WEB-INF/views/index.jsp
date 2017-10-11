@@ -8,7 +8,6 @@
     <title>메인</title>
 </head>
 <body>
-    <!-- # TODO 6 : views -->
     <h1>메인</h1>
 
     <jsp:include page="fragments/heading.jsp" />

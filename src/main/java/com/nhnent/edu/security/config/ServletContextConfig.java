@@ -1,3 +1,15 @@
+package com.nhnent.edu.security.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+// TODO: #2 servlet context configurtaion
+/*
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -12,7 +24,6 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven />
 
-    <!-- # TODO 5 : view-controllers -->
     <view-controller path="/" view-name="index" />
     <view-controller path="/admin/**" view-name="admin" />
     <view-controller path="/project/**" view-name="project" />
@@ -28,3 +39,27 @@
     <context:component-scan base-package="com.nhnent.edu" />
 
 </beans:beans>
+ */
+@Configuration
+@ComponentScan("com.nhnent.edu.security.controller")
+@EnableWebMvc
+public class ServletContextConfig extends WebMvcConfigurerAdapter {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/admin/**").setViewName("admin");
+        registry.addViewController("/project/**").setViewName("project");
+        registry.addViewController("/public-project/**").setViewName("public-project");
+        registry.addRedirectViewController("/redirect-index", "/");
+    }
+
+    @Bean
+    public InternalResourceViewResolver jspViewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+
+        return viewResolver;
+    }
+
+}
