@@ -2,35 +2,72 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
              xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
                                  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                                 http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
 
-    <http use-expressions="true">
+    <!-- TODO : #11 AuthenticationEntryPoint 적용 - `entry-point-ref`  -->
+    <http use-expressions="true" entry-point-ref="oAuth2EntryPoint">
         <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
         <intercept-url pattern="/public-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
         <intercept-url pattern="/project/**"        access="isAuthenticated()" />
         <intercept-url pattern="/redirect-index"    access="isAuthenticated()" />
         <intercept-url pattern="/**"                access="permitAll()" />
 
-        <!-- TODO : #1 csrf 활성화 -->
-        <csrf />
-        <form-login
-                login-page="/login/form"
-                username-parameter="name"
-                password-parameter="pwd"
-                login-processing-url="/login/process"
-                authentication-failure-handler-ref="loginFailureHandler"
-        />
-        <logout />
-    </http>
+        <csrf disabled="true" />
+        <logout logout-url="/logout" logout-success-url="https://alpha-id.payco.com/logout.nhn?serviceProviderCode=FRIENDS&amp;nextUrl=http%3A%2F%2Flocalhost%3A8080%2F" />
+        <anonymous enabled="false" />
 
-    <authentication-manager>
-        <authentication-provider user-service-ref="customUserDetailsService" />
-    </authentication-manager>
+        <!-- TODO : #3 OAuth2ClientContextFilter, OAuth2ClientAuthenticationProcessingFilter 필터 추가 -->
+        <custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
+        <custom-filter ref="oauth2ProcessingFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+
+    </http>
 
     <beans:bean id="customUserDetailsService" class="com.nhnent.edu.security.CustomUserDetailsService" />
 
-    <beans:bean id="loginFailureHandler" class="com.nhnent.edu.security.CustomLoginFailureHandler" />
+    <!-- TODO : #4 OAuth2ClientContextFilter 생성 -->
+    <oauth2:client id="oauth2ClientFilter" />
+
+    <!-- TODO : #6 OAuth2ProtectedResourceDetails, OAuth2RestTemplate 생성 -->
+    <oauth2:resource id="paycoIdResource"
+                     client-id="3RDU4G5NI_cxk4VNvSI7"
+                     client-secret="fxVFAe2HjN98DOyrV6kyJVHD"
+                     user-authorization-uri="https://alpha-id.payco.com/oauth2.0/authorize"
+                     access-token-uri="https://alpha-id.payco.com/oauth2.0/token"
+                     type="authorization_code"
+                     client-authentication-scheme="form"
+    />
+
+    <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
+
+    <!-- TODO : #7 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
+    <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean class="com.nhnent.edu.security.PaycoIdAuthorizationCodeAccessTokenProvider" />
+                <beans:bean class="org.springframework.security.oauth2.client.token.grant.implicit.ImplicitAccessTokenProvider" />
+                <beans:bean class="org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider" />
+                <beans:bean class="org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsAccessTokenProvider" />
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+
+    <!-- TODO : #5 OAuth2ClientAuthenticationProcessingFilter 생성 -->
+    <beans:bean id="oauth2ProcessingFilter" class="org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter">
+        <beans:constructor-arg value="/login/process" />
+        <beans:property name="restTemplate" ref="paycoIdRestTemplate" />
+        <beans:property name="tokenServices" ref="paycoIdTokenServices" />
+    </beans:bean>
+
+    <!-- TODO : #9 ResourceServerTokenServices 적용 -->
+    <beans:bean id="paycoIdTokenServices" class="com.nhnent.edu.security.PaycoIdUserInfoTokenServices" />
+
+    <!-- TODO : #11 AuthenticationEntryPoint 적용 -->
+    <beans:bean id="oAuth2EntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:constructor-arg value="/login/process" />
+    </beans:bean>
 
 </beans:beans>
