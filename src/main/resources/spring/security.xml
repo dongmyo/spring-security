@@ -8,7 +8,7 @@
                                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                                  http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
 
-    <!-- TODO : #11 AuthenticationEntryPoint 적용 - `entry-point-ref`  -->
+    <!-- TODO : #9 AuthenticationEntryPoint 적용 - `entry-point-ref`  -->
     <http use-expressions="true" entry-point-ref="oAuth2EntryPoint">
         <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
         <intercept-url pattern="/public-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
@@ -17,8 +17,9 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
-        <!-- TODO : https://developers.payco.com/guide/development/apply - Access Token 삭제 -->
         <logout logout-url="/logout" logout-success-url="https://alpha-id.payco.com/logout.nhn?serviceProviderCode=FRIENDS&amp;nextUrl=http%3A%2F%2Flocalhost%3A8080%2F" />
+
+        <!-- TODO : #12 ??? -->
         <!--<anonymous enabled="false" />-->
 
         <!-- TODO : #3 OAuth2ClientContextFilter, OAuth2ClientAuthenticationProcessingFilter 필터 추가 -->
@@ -42,19 +43,7 @@
                      client-authentication-scheme="form"
     />
 
-    <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
-
-    <!-- TODO : #7 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
-    <beans:bean id="accessTokenProvider" class="com.nhnent.edu.security.CustomAccessTokenProviderChain">
-        <beans:constructor-arg>
-            <beans:list>
-                <beans:bean class="com.nhnent.edu.security.PaycoIdAuthorizationCodeAccessTokenProvider" />
-                <beans:bean class="org.springframework.security.oauth2.client.token.grant.implicit.ImplicitAccessTokenProvider" />
-                <beans:bean class="org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider" />
-                <beans:bean class="org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsAccessTokenProvider" />
-            </beans:list>
-        </beans:constructor-arg>
-    </beans:bean>
+    <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" />
 
     <!-- TODO : #5 OAuth2ClientAuthenticationProcessingFilter 생성 -->
     <beans:bean id="oauth2ProcessingFilter" class="org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter">
@@ -63,10 +52,10 @@
         <beans:property name="tokenServices" ref="paycoIdTokenServices" />
     </beans:bean>
 
-    <!-- TODO : #9 ResourceServerTokenServices 적용 -->
+    <!-- TODO : #7 ResourceServerTokenServices 적용 -->
     <beans:bean id="paycoIdTokenServices" class="com.nhnent.edu.security.PaycoIdUserInfoTokenServices" />
 
-    <!-- TODO : #11 AuthenticationEntryPoint 적용 -->
+    <!-- TODO : #9 AuthenticationEntryPoint 적용 -->
     <beans:bean id="oAuth2EntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <beans:constructor-arg value="/login/process" />
     </beans:bean>

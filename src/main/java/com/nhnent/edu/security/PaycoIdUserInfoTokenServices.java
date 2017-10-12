@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 
 import java.util.*;
 
-// TODO : #10 ResourceServerTokenServices 구현 -->
+// TODO : #8 ResourceServerTokenServices 구현 -->
 public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices {
     @Autowired
     OAuth2RestTemplate oAuth2RestTemplate;
@@ -26,7 +26,7 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
 
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
-        // TODO : #10 AccessToken을 가지고 "PAYCO ID 회원 정보" (protected resource) 조회
+        // TODO : #8 AccessToken을 가지고 "PAYCO ID 회원 정보" (protected resource) 조회
         Map<String, Object> userInfoMap = getPaycoIdUserInfo(accessToken);
         if (userInfoMap == null || userInfoMap.isEmpty()) {
             throw new InvalidTokenException(accessToken);

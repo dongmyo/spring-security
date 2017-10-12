@@ -14,7 +14,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- TODO : #12 request를 현재 thread에 노출 -->
+	<!-- TODO : #10 request를 현재 thread에 노출 -->
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
