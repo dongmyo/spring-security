@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 
 import java.util.List;
 
+// TODO : #2 AccessTokenProviderChain 커스터마이징 구현
 public class CustomAccessTokenProviderChain extends AccessTokenProviderChain {
     private ClientTokenServices clientTokenServices;
 
@@ -33,12 +34,7 @@ public class CustomAccessTokenProviderChain extends AccessTokenProviderChain {
         OAuth2AccessToken existingToken = null;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        /*
-         * TODO : Anonymous도 access token 가져올 수 있도록 수정
-         * cf.)
-         * https://stackoverflow.com/questions/41380738/spring-security-oauth2-insufficientauthenticationexception-authentication-is
-         * http://forum.spring.io/forum/spring-projects/security/oauth/121682-authentication-is-required-to-obtain-an-access-token-anonymous-not-allowed
-         */
+        // TODO : #3 Anonymous도 access token 가져올 수 있도록 수정
         /*
         if (auth instanceof AnonymousAuthenticationToken) {
             if (!resource.isClientOnly()) {
