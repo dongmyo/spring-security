@@ -17,6 +17,7 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
+        <!-- TODO : https://developers.payco.com/guide/development/apply - Access Token 삭제 -->
         <logout logout-url="/logout" logout-success-url="https://alpha-id.payco.com/logout.nhn?serviceProviderCode=FRIENDS&amp;nextUrl=http%3A%2F%2Flocalhost%3A8080%2F" />
         <anonymous enabled="false" />
 

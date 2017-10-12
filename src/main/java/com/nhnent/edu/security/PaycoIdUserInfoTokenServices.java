@@ -1,6 +1,7 @@
 package com.nhnent.edu.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,15 +41,37 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
     }
 
     private Map<String, Object> getPaycoIdUserInfo() {
-        String resourceUrl = "http://tcc1-alpha-id-bo.payco.com:10003/neid_bo/neidProfileApi/getUserStatusByToken";
+        String resourceUrl = "https://dev-apis.krp.toastoven.net/payco/friends/getMemberProfileByFriendsToken.json";
 
-        Map<String, String> params = new HashMap<>();
-        params.put("access_token", oAuth2RestTemplate.getAccessToken().getValue());
-        params.put("client_id", oAuth2RestTemplate.getResource().getClientId());
-        params.put("serviceProviderCode", "FRIENDS");
-        params.put("version", "1.0");
+        String clientId = oAuth2RestTemplate.getResource().getClientId();
+        String accessToken = oAuth2RestTemplate.getAccessToken().getValue();
 
-        return oAuth2RestTemplate.postForObject(resourceUrl, params, Map.class);
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("client_id", clientId);
+        requestHeaders.add("access_token", accessToken);
+
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("client_id", clientId);
+        requestBody.put("access_token", accessToken);
+
+
+        HttpEntity<Map> requestEntity = new HttpEntity<>(requestBody, requestHeaders);
+
+        ResponseEntity<Map> response = oAuth2RestTemplate.exchange(
+                resourceUrl,
+                HttpMethod.POST,
+                requestEntity,
+                Map.class
+        );
+
+        if (response.getStatusCode() != HttpStatus.OK) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, Object> responseBody = response.getBody();
+
+
+        return (Map<String, Object>) responseBody.getOrDefault("memberProfile", Collections.emptyMap());
     }
 
     private OAuth2Authentication extractAuthentication(Map<String, Object> userInfoMap) {
