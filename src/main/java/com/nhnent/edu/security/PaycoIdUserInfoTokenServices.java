@@ -30,7 +30,8 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
             throw new InvalidTokenException(accessToken);
         }
 
-        return extractAuthentication(userInfoMap);
+        // TODO : #4 Authentication에 accessToken을 담아두도록 수정
+        return extractAuthentication(userInfoMap, accessToken);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
         return (Map<String, Object>) responseBody.getOrDefault("memberProfile", Collections.emptyMap());
     }
 
-    private OAuth2Authentication extractAuthentication(Map<String, Object> userInfoMap) {
+    private OAuth2Authentication extractAuthentication(Map<String, Object> userInfoMap, String accessToken) {
         String userName = (String) userInfoMap.get("id");
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(userName);
 
@@ -89,9 +90,10 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
                 null
         );
 
+        // TODO : #5 user credential에 accessToken을 저장
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 userDetails,
-                null,
+                accessToken,
                 authorities
         );
         token.setDetails(userInfoMap);

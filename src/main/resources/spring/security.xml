@@ -14,7 +14,7 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
-        <!-- TODO : #1 LogoutSuccessHandler 등록 -->
+        <!-- TODO : #2 LogoutSuccessHandler 등록 -->
         <logout logout-url="/logout" success-handler-ref="logoutHandler" />
 
         <!--<anonymous enabled="false" />-->
@@ -63,7 +63,7 @@
         <beans:constructor-arg value="/login/process" />
     </beans:bean>
 
-    <!-- TODO : #1 LogoutSuccessHandler 등록 -->
+    <!-- TODO : #1 LogoutSuccessHandler bean 생성 -->
     <beans:bean id="logoutHandler" class="com.nhnent.edu.security.PaycoIdLogoutSuccessHandler" />
 
 </beans:beans>
