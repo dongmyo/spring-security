@@ -35,7 +35,6 @@
                      client-authentication-scheme="form"
     />
 
-    <!-- TODO : #1 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
     <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
 
     <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
@@ -61,7 +60,6 @@
         <beans:constructor-arg value="/login/process" />
     </beans:bean>
 
-    <!-- TODO : #1 LogoutSuccessHandler bean 생성 -->
     <beans:bean id="logoutHandler" class="com.nhnent.edu.security.PaycoIdLogoutSuccessHandler" />
 
 </beans:beans>
