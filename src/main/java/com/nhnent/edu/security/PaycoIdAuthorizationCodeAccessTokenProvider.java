@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
+// TODO : #2 AuthorizationCodeAccessTokenProvider 커스터마이징 구현
 public class PaycoIdAuthorizationCodeAccessTokenProvider extends AuthorizationCodeAccessTokenProvider {
     private StateKeyGenerator stateKeyGenerator = new DefaultStateKeyGenerator();
 
@@ -71,6 +72,7 @@ public class PaycoIdAuthorizationCodeAccessTokenProvider extends AuthorizationCo
             requestParameters.put("scope", builder.toString());
         }
 
+        // TODO : #2 PAYCO ID serviceProviderCode parameter 추가
         requestParameters.put("serviceProviderCode", "FRIENDS");
 
         UserRedirectRequiredException redirectException = new UserRedirectRequiredException(

@@ -16,7 +16,6 @@
         <csrf disabled="true" />
         <logout logout-url="/logout" logout-success-url="https://alpha-id.payco.com/logout.nhn?serviceProviderCode=FRIENDS&amp;nextUrl=http%3A%2F%2Flocalhost%3A8080%2F" />
 
-        <!-- TODO : #4 anonymous 허용 -->
         <!--<anonymous enabled="false" />-->
 
         <custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
@@ -37,10 +36,11 @@
                      client-authentication-scheme="form"
     />
 
+    <!-- TODO : #1 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
     <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
 
-    <!-- TODO : #1 AccessTokenProviderChain 커스터마이징 -->
-    <beans:bean id="accessTokenProvider" class="com.nhnent.edu.security.CustomAccessTokenProviderChain">
+    <!-- TODO : #1 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
+    <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
         <beans:constructor-arg>
             <beans:list>
                 <beans:bean class="com.nhnent.edu.security.PaycoIdAuthorizationCodeAccessTokenProvider" />
