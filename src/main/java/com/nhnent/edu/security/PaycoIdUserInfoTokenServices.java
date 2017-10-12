@@ -27,7 +27,7 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
     @Override
     public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
         // TODO : #10 AccessToken을 가지고 "PAYCO ID 회원 정보" (protected resource) 조회
-        Map<String, Object> userInfoMap = getPaycoIdUserInfo();
+        Map<String, Object> userInfoMap = getPaycoIdUserInfo(accessToken);
         if (userInfoMap == null || userInfoMap.isEmpty()) {
             throw new InvalidTokenException(accessToken);
         }
@@ -40,11 +40,10 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
         throw new UnsupportedOperationException("Not supported");
     }
 
-    private Map<String, Object> getPaycoIdUserInfo() {
+    private Map<String, Object> getPaycoIdUserInfo(String accessToken) {
         String resourceUrl = "https://dev-apis.krp.toastoven.net/payco/friends/getMemberProfileByFriendsToken.json";
 
         String clientId = oAuth2RestTemplate.getResource().getClientId();
-        String accessToken = oAuth2RestTemplate.getAccessToken().getValue();
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.add("client_id", clientId);
