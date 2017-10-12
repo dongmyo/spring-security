@@ -14,7 +14,8 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
-        <logout logout-url="/logout" logout-success-url="https://alpha-id.payco.com/logout.nhn?serviceProviderCode=FRIENDS&amp;nextUrl=http%3A%2F%2Flocalhost%3A8080%2F" />
+        <!-- TODO : #1 LogoutSuccessHandler 등록 -->
+        <logout logout-url="/logout" success-handler-ref="logoutHandler" />
 
         <!--<anonymous enabled="false" />-->
 
@@ -39,7 +40,6 @@
     <!-- TODO : #1 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
     <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
 
-    <!-- TODO : #1 AuthorizationCodeAccessTokenProvider 커스터마이징 - serviceProviderCode 파라미터 추가 -->
     <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
         <beans:constructor-arg>
             <beans:list>
@@ -62,5 +62,8 @@
     <beans:bean id="oAuth2EntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
         <beans:constructor-arg value="/login/process" />
     </beans:bean>
+
+    <!-- TODO : #1 LogoutSuccessHandler 등록 -->
+    <beans:bean id="logoutHandler" class="com.nhnent.edu.security.PaycoIdLogoutSuccessHandler" />
 
 </beans:beans>
