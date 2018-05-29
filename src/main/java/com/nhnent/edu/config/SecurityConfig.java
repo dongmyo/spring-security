@@ -23,6 +23,8 @@ import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import java.util.Arrays;
@@ -40,9 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                /* TODO : OAuth2ClientContextFilter, OAuth2ClientAuthenticationProcessingFilter 필터 추가 */
-//                .addFilterAfter...
-//                .addFilterBefore...
+                .addFilterAfter(oAuth2ClientContextFilter, ExceptionTranslationFilter.class)
+                .addFilterBefore(oauth2ProcessingFilter(), FilterSecurityInterceptor.class)
                 /* entry-point-ref */
                 .exceptionHandling()
                     .authenticationEntryPoint(oAuth2EntryPoint())
@@ -55,8 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().permitAll()
                     .and()
                 .logout()
-                    /* TODO : LogoutSuccessHandler  등록 */
-                    // ...
+                    .logoutSuccessHandler(logoutHandler())
                     .and()
                 .csrf()
                     .disable();
