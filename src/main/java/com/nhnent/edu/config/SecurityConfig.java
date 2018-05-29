@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(customUserDetailsService);
+        // TODO : #1 UsernameNotFoundException, BadCredentialsException 구분
+        authProvider.setHideUserNotFoundExceptions(false);
 
         return authProvider;
     }
