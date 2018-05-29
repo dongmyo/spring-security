@@ -30,7 +30,6 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
             throw new InvalidTokenException(accessToken);
         }
 
-        // TODO : #4 Authentication에 accessToken을 담아두도록 수정
         return extractAuthentication(userInfoMap, accessToken);
     }
 
@@ -90,7 +89,6 @@ public class PaycoIdUserInfoTokenServices implements ResourceServerTokenServices
                 null
         );
 
-        // TODO : #5 user credential에 accessToken을 저장
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 accessToken,
