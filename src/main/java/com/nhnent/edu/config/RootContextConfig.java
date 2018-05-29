@@ -35,7 +35,6 @@ public class RootContextConfig {
         return dataSource;
     }
 
-    // TODO : #2 mybatis bean configuration
     @Bean
     public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();

@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
-    // TODO : #7 custom UserDetailsService configuration
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth

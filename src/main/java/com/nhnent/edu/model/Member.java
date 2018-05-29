@@ -1,6 +1,5 @@
 package com.nhnent.edu.model;
 
-// TODO : #5 Member DTO
 public class Member {
     private String name;
     private String password;
