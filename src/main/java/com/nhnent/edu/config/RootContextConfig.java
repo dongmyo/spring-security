@@ -2,6 +2,7 @@ package com.nhnent.edu.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
 
 // TODO: #1 root context configuration
 /*
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 </beans>
  */
 @Configuration
-@ComponentScan("com.nhnent.edu")
+@ComponentScan(basePackages = "com.nhnent.edu", excludeFilters = {@ComponentScan.Filter(Controller.class)})
 public class RootContextConfig {
 
 }
