@@ -113,7 +113,6 @@
             <version>${spring-security.version}</version>
         </dependency>
 
-        <!-- TODO : #1 Spring JDBC, mybatis -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -185,7 +184,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- TODO : #1 JDBC, h2 -->
 
         <!-- dbcp -->
         <dependency>

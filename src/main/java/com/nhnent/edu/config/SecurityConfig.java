@@ -1,5 +1,6 @@
 package com.nhnent.edu.config;
 
+import com.nhnent.edu.security.CustomLoginFailureHandler;
 import com.nhnent.edu.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
+                // TODO : #1 커스텀 로그인
                 .formLogin()
-                .and()
+                    .loginPage("/login/form")
+                    .usernameParameter("name")
+                    .passwordParameter("pwd")
+                    .loginProcessingUrl("/login/process")
+                    .failureHandler(loginFailureHandler())
+                    .and()
                 .logout()
                 .and()
                 .csrf().disable();
@@ -46,6 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setUserDetailsService(customUserDetailsService);
 
         return authProvider;
+    }
+
+    @Bean
+    public CustomLoginFailureHandler loginFailureHandler() {
+        return new CustomLoginFailureHandler();
     }
 
 }

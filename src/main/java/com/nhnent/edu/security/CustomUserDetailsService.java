@@ -22,9 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        /*
-         * TODO : #8 직접 구현 하세요.
-         */
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         Member member = memberDao.exists(username);
