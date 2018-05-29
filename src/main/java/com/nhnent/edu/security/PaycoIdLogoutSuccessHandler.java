@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 // TODO : #3 LogoutSuccessHandler 구현
 public class PaycoIdLogoutSuccessHandler implements LogoutSuccessHandler {

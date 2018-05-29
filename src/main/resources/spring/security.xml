@@ -14,8 +14,10 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
+        <!-- TODO : #2 LogoutSuccessHandler 등록 -->
         <logout logout-url="/logout" success-handler-ref="logoutHandler" />
-        <anonymous enabled="false" />
+
+        <!--<anonymous enabled="false" />-->
 
         <custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
         <custom-filter ref="oauth2ProcessingFilter" before="FILTER_SECURITY_INTERCEPTOR" />
@@ -37,7 +39,7 @@
 
     <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
 
-    <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
+    <beans:bean id="accessTokenProvider" class="com.nhnent.edu.security.CustomAccessTokenProviderChain">
         <beans:constructor-arg>
             <beans:list>
                 <beans:bean class="com.nhnent.edu.security.PaycoIdAuthorizationCodeAccessTokenProvider" />
@@ -60,6 +62,7 @@
         <beans:constructor-arg value="/login/process" />
     </beans:bean>
 
+    <!-- TODO : #1 LogoutSuccessHandler bean 생성 -->
     <beans:bean id="logoutHandler" class="com.nhnent.edu.security.PaycoIdLogoutSuccessHandler" />
 
 </beans:beans>
