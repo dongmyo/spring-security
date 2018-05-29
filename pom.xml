@@ -161,8 +161,8 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- TODO : #1 JDBC, h2 -->
 
+        <!-- TODO : #1 JDBC, h2 -->
         <!-- dbcp -->
         <dependency>
             <groupId>org.apache.commons</groupId>
