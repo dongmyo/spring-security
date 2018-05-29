@@ -13,18 +13,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                /* TODO : #2 secure channel */
+                .requiresChannel()
+                    /* TODO : #3 관리툴/프로젝트/공개프로젝트 페이지 secure로 설정 */
+                    .anyRequest().requiresInsecure()
+                    .and()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
-                .antMatchers("/project/**").authenticated()
-                .antMatchers("/redirect-index").authenticated()
-                .anyRequest().permitAll()
-                .and()
+                    .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                    .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                    .antMatchers("/project/**").authenticated()
+                    .antMatchers("/redirect-index").authenticated()
+                    .anyRequest().permitAll()
+                    .and()
                 .formLogin()
-                .and()
+                    .and()
                 .logout()
-                .and()
-                .csrf().disable();
+                    .and()
+                .csrf()
+                /* TODO : #4 enable csrf */
+                    .disable()
+                /* TODO : #5 response headers */
+//                .headers()
+//                    .defaultsDisabled()
+//                    .cacheControl()
+        ;
     }
 
     @Autowired
