@@ -1,9 +1,11 @@
 package com.nhnent.edu.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
     private String username;
@@ -20,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO : #7 this.authority 값과 SimpleGrantedAuthority 클래스를 이용해서 반환값을 완성하세요.
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(authority));
     }
 
     @Override

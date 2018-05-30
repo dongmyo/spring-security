@@ -3,6 +3,7 @@ package com.nhnent.edu.security;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
     // TODO : #6 RedirectStrategy interface의 구현체를 이용해서 redirectStrategy 객체를 생성하세요.
-    private RedirectStrategy redirectStrategy = null;
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 
     @Override

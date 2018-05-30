@@ -23,11 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .requiresChannel()
                     /* TODO : #2 관리툴/프로젝트/공개프로젝트 페이지는 secure로 접속되도록 설정해주세요. */
+                    .antMatchers("/admin/**").requiresSecure()
+                    .antMatchers("/project/**").requiresSecure()
+                    .antMatchers("/public-project/**").requiresSecure()
                     .anyRequest().requiresInsecure()
                     .and()
                 .authorizeRequests()
                     .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                     /* TODO : #3 공개 프로젝트 URL은 (`/public-project/**`) ADMIN 이나 MEMBER 권한이 있을 때 접근 가능하도록 설정해주세요. */
+                    .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                     .antMatchers("/project/**").authenticated()
                     .antMatchers("/redirect-index").authenticated()
                     .anyRequest().permitAll()
@@ -44,9 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers()
                     .defaultsDisabled()
                     /* TODO : #4 Security HTTP Response header 중 `X-Frame-Options` 헤더의 값을 SAMEORIGIN으로 설정해주세요. */
+                        .frameOptions().sameOrigin()
                     .and()
                 .exceptionHandling()
                     /* TODO : #9 custom 403 에러 페이지(`/error/403`)를 설정해주세요. */
+                    .accessDeniedPage("/error/403")
                     .and()
                 .csrf()
                     .disable();

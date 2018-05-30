@@ -4,16 +4,10 @@ import com.nhnent.edu.dao.MemberDao;
 import com.nhnent.edu.model.CustomUserDetails;
 import com.nhnent.edu.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -34,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         // TODO : #5 UserDetails의 custom 구현체를 반환하세요.
-        return new CustomUserDetails();
+        return new CustomUserDetails(username, member.getPassword(), authority);
     }
 
 }
