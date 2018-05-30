@@ -1,6 +1,7 @@
 package com.nhnent.edu.security;
 
 import com.nhnent.edu.dao.MemberDao;
+import com.nhnent.edu.model.CustomUserDetails;
 import com.nhnent.edu.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service("customUserDetailsService")
@@ -22,10 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
         Member member = memberDao.exists(username);
-
         if (member == null) {
             throw new UsernameNotFoundException("username not found");
         }
@@ -35,9 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("username not found");
         }
 
-        authorities.add(new SimpleGrantedAuthority(authority));
-
-        return new User(username, member.getPassword(), authorities);
+        // TODO : #5 UserDetails의 custom 구현체를 반환하세요.
+        return new CustomUserDetails();
     }
 
 }

@@ -21,13 +21,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .requiresChannel()
+                    /* TODO : #2 관리툴/프로젝트/공개프로젝트 페이지는 secure로 접속되도록 설정해주세요. */
+                    .anyRequest().requiresInsecure()
+                    .and()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
-                .antMatchers("/project/**").authenticated()
-                .antMatchers("/redirect-index").authenticated()
-                .anyRequest().permitAll()
-                .and()
+                    .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                    /* TODO : #3 공개 프로젝트 URL은 (`/public-project/**`) ADMIN 이나 MEMBER 권한이 있을 때 접근 가능하도록 설정해주세요. */
+                    .antMatchers("/project/**").authenticated()
+                    .antMatchers("/redirect-index").authenticated()
+                    .anyRequest().permitAll()
+                    .and()
                 .formLogin()
                     .loginPage("/login/form")
                     .usernameParameter("name")
@@ -36,8 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(loginFailureHandler())
                     .and()
                 .logout()
-                .and()
-                .csrf().disable();
+                    .and()
+                .headers()
+                    .defaultsDisabled()
+                    /* TODO : #4 Security HTTP Response header 중 `X-Frame-Options` 헤더의 값을 SAMEORIGIN으로 설정해주세요. */
+                    .and()
+                .exceptionHandling()
+                    /* TODO : #8 custom 403 에러 페이지(`/error/403`)를 설정해주세요. */
+                    .and()
+                .csrf()
+                    .disable();
     }
 
     @Autowired

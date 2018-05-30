@@ -21,6 +21,7 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         registry.addRedirectViewController("/redirect-index", "/");
 
         registry.addViewController("/login/form").setViewName("loginForm");
+        registry.addViewController("/error/403").setViewName("error403");
     }
 
     @Bean
