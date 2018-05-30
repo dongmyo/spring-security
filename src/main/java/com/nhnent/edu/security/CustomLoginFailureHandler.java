@@ -15,7 +15,6 @@ import java.io.IOException;
 public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        // TODO : #2 login failure handler 구현
         HttpSession session = request.getSession();
 
         boolean isInvalidUsername = (exception instanceof UsernameNotFoundException);

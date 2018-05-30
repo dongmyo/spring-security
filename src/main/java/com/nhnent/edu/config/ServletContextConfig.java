@@ -20,7 +20,6 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/public-project/**").setViewName("public-project");
         registry.addRedirectViewController("/redirect-index", "/");
 
-        // TODO : #2 로그인 폼 view-controller
         registry.addViewController("/login/form").setViewName("loginForm");
     }
 

@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                // TODO : #1 커스텀 로그인
                 .formLogin()
                     .loginPage("/login/form")
                     .usernameParameter("name")
@@ -51,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(customUserDetailsService);
-        // TODO : #1 UsernameNotFoundException, BadCredentialsException 구분
         authProvider.setHideUserNotFoundExceptions(false);
 
         return authProvider;

@@ -12,7 +12,6 @@
 <br />
 <br />
 
-<!-- TODO : #3 로그인 에러 메세지 출력 -->
 <c:if test="${param.error != null}">
     <div style="color: red; ">등록되지 않은 아이디이거나 아이디 또는 비밀번호가 일치하지 않습니다.</div>
     <br />
