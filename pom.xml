@@ -235,6 +235,10 @@
 				<configuration>
 					<path>/</path>
 					<port>8080</port>
+                    <!-- TODO : #1 keystore file for SSL -->
+                    <httpsPort>8443</httpsPort>
+                    <keystoreFile>${project.basedir}/src/main/resources/security.key</keystoreFile>
+                    <keystorePass>security</keystorePass>
 					<uriEncoding>UTF-8</uriEncoding>
 				</configuration>
 			</plugin>

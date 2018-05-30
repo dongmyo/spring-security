@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     /* TODO : #4 Security HTTP Response header 중 `X-Frame-Options` 헤더의 값을 SAMEORIGIN으로 설정해주세요. */
                     .and()
                 .exceptionHandling()
-                    /* TODO : #8 custom 403 에러 페이지(`/error/403`)를 설정해주세요. */
+                    /* TODO : #9 custom 403 에러 페이지(`/error/403`)를 설정해주세요. */
                     .and()
                 .csrf()
                     .disable();

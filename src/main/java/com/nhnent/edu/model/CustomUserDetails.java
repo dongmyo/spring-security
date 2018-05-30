@@ -19,7 +19,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO : #6 this.authority 값과 SimpleGrantedAuthority 클래스를 이용해서 반환값을 완성하세요.
+        // TODO : #7 this.authority 값과 SimpleGrantedAuthority 클래스를 이용해서 반환값을 완성하세요.
         return null;
     }
 
