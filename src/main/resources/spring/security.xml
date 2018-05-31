@@ -14,13 +14,10 @@
         <intercept-url pattern="/**"                access="permitAll()" />
 
         <csrf disabled="true" />
-        <!-- TODO : #2 LogoutSuccessHandler 등록 -->
         <logout logout-url="/logout" success-handler-ref="logoutHandler" />
 
-        <!--<anonymous enabled="false" />-->
-
-        <custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
-        <custom-filter ref="oauth2ProcessingFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+        <!-- TODO : #2 oauth2ProcessingFilter 의 위치를 PRE_AUTH_FILTER 다음으로 변경 -->
+        <custom-filter ref="oauth2ProcessingFilter" after="PRE_AUTH_FILTER" />
 
     </http>
 
@@ -39,7 +36,8 @@
 
     <oauth2:rest-template id="paycoIdRestTemplate" resource="paycoIdResource" access-token-provider="accessTokenProvider" />
 
-    <beans:bean id="accessTokenProvider" class="com.nhnent.edu.security.CustomAccessTokenProviderChain">
+    <!-- TODO : #3 accessTokenProvider 구현체를 custom이 아닌 spring에서 제공해주는 것을 사용 -->
+    <beans:bean id="accessTokenProvider" class="org.springframework.security.oauth2.client.token.AccessTokenProviderChain">
         <beans:constructor-arg>
             <beans:list>
                 <beans:bean class="com.nhnent.edu.security.PaycoIdAuthorizationCodeAccessTokenProvider" />
@@ -62,7 +60,6 @@
         <beans:constructor-arg value="/login/process" />
     </beans:bean>
 
-    <!-- TODO : #1 LogoutSuccessHandler bean 생성 -->
     <beans:bean id="logoutHandler" class="com.nhnent.edu.security.PaycoIdLogoutSuccessHandler" />
 
 </beans:beans>

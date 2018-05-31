@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-// TODO : #3 LogoutSuccessHandler 구현
 public class PaycoIdLogoutSuccessHandler implements LogoutSuccessHandler {
     @Autowired
     OAuth2RestTemplate oAuth2RestTemplate;
@@ -23,12 +22,6 @@ public class PaycoIdLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        /*
-         * TODO : #6 구현하세요
-         * cf.)
-         *  PAYCO ID 연동 가이드 : https://developers.payco.com/guide/development/apply
-         *  PAYCO ID Access Token 삭제 API : https://id.payco.com/oauth2.0/logout
-         */
         String clientId = oAuth2RestTemplate.getResource().getClientId();
 
         String token = Optional.ofNullable(authentication)
