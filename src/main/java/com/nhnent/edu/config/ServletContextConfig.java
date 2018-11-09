@@ -27,7 +27,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
     <view-controller path="/" view-name="index" />
     <view-controller path="/admin/**" view-name="admin" />
     <view-controller path="/project/**" view-name="project" />
-    <view-controller path="/public-project/**" view-name="public-project" />
+    <view-controller path="/private-project/**" view-name="public-project" />
     <redirect-view-controller path="/redirect-index" redirect-url="/" />
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -49,7 +49,7 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/admin/**").setViewName("admin");
         registry.addViewController("/project/**").setViewName("project");
-        registry.addViewController("/public-project/**").setViewName("public-project");
+        registry.addViewController("/private-project/**").setViewName("private-project");
         registry.addRedirectViewController("/redirect-index", "/");
     }
 

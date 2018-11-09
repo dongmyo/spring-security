@@ -16,11 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
                                  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <http use-expressions="true">
-        <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
-        <intercept-url pattern="/public-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
-        <intercept-url pattern="/project/**"        access="isAuthenticated()" />
-        <intercept-url pattern="/redirect-index"    access="isAuthenticated()" />
-        <intercept-url pattern="/**"                access="permitAll()" />
+        <intercept-url pattern="/admin/**"           access="hasAuthority('ROLE_ADMIN')" />
+        <intercept-url pattern="/private-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
+        <intercept-url pattern="/project/**"         access="isAuthenticated()" />
+        <intercept-url pattern="/redirect-index"     access="isAuthenticated()" />
+        <intercept-url pattern="/**"                 access="permitAll()" />
 
         <csrf disabled="true" />
         <form-login />
@@ -30,9 +30,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="admin"  password="12345" authorities="ROLE_ADMIN" />
-                <user name="member" password="67890" authorities="ROLE_MEMBER" />
-                <user name="guest"  password="abcde" authorities="ROLE_GUEST" />
+                <user name="admin"  password="admin" authorities="ROLE_ADMIN" />
+                <user name="member" password="member" authorities="ROLE_MEMBER" />
+                <user name="guest"  password="guest" authorities="ROLE_GUEST" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
@@ -44,29 +44,28 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                .antMatchers("/private-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                 .antMatchers("/project/**").authenticated()
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+            .formLogin()
                 .and()
-                .logout()
+            .logout()
                 .and()
-                .csrf().disable();
+            .csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password("12345").authorities("ROLE_ADMIN")
+            .withUser("admin").password("admin").authorities("ROLE_ADMIN")
                 .and()
-                .withUser("member").password("67890").authorities("ROLE_MEMBER")
+            .withUser("member").password("member").authorities("ROLE_MEMBER")
                 .and()
-                .withUser("guest").password("abcde").authorities("ROLE_GUEST");
+            .withUser("guest").password("guest").authorities("ROLE_GUEST");
     }
 
 }
