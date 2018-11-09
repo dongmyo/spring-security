@@ -6,11 +6,11 @@
 
     <!-- TODO #4 : security configuration -->
     <http use-expressions="true">
-        <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/**"           access="hasAuthority('ROLE_ADMIN')" />
         <intercept-url pattern="/private-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
-        <intercept-url pattern="/project/**"        access="isAuthenticated()" />
-        <intercept-url pattern="/redirect-index"    access="isAuthenticated()" />
-        <intercept-url pattern="/**"                access="permitAll()" />
+        <intercept-url pattern="/project/**"         access="isAuthenticated()" />
+        <intercept-url pattern="/redirect-index"     access="isAuthenticated()" />
+        <intercept-url pattern="/**"                 access="permitAll()" />
 
         <csrf disabled="true" />
         <form-login />
