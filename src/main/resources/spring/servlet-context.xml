@@ -12,11 +12,11 @@
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven />
 
-    <!-- # TODO 5 : view-controllers -->
+    <!-- TODO #5 : view-controllers -->
     <view-controller path="/" view-name="index" />
     <view-controller path="/admin/**" view-name="admin" />
     <view-controller path="/project/**" view-name="project" />
-    <view-controller path="/public-project/**" view-name="public-project" />
+    <view-controller path="/private-project/**" view-name="private-project" />
     <redirect-view-controller path="/redirect-index" redirect-url="/" />
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
