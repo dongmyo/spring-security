@@ -12,29 +12,28 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                .antMatchers("/private-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                 .antMatchers("/project/**").authenticated()
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+            .formLogin()
                 .and()
-                .logout()
+            .logout()
                 .and()
-                .csrf().disable();
+            .csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password("12345").authorities("ROLE_ADMIN")
+            .withUser("admin").password("admin").authorities("ROLE_ADMIN")
                 .and()
-                .withUser("member").password("67890").authorities("ROLE_MEMBER")
+            .withUser("member").password("member").authorities("ROLE_MEMBER")
                 .and()
-                .withUser("guest").password("abcde").authorities("ROLE_GUEST");
+            .withUser("guest").password("guest").authorities("ROLE_GUEST");
     }
 
 }
