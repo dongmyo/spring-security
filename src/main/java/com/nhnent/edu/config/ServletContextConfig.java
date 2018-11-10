@@ -17,10 +17,10 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/admin/**").setViewName("admin");
         registry.addViewController("/project/**").setViewName("project");
-        registry.addViewController("/public-project/**").setViewName("public-project");
+        registry.addViewController("/private-project/**").setViewName("private-project");
         registry.addRedirectViewController("/redirect-index", "/");
 
-        // TODO : #2 로그인 폼 view-controller
+        // TODO : #2 로그인 폼 view-controller ログインフォームview-controller
         registry.addViewController("/login/form").setViewName("loginForm");
     }
 

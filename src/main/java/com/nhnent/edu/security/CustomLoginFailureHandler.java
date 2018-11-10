@@ -15,11 +15,11 @@ import java.io.IOException;
 public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        // TODO : #2 login failure handler 구현
+        // TODO : #3 직접 구현 하세요. 直接実装します。
         HttpSession session = request.getSession();
 
         boolean isInvalidUsername = (exception instanceof UsernameNotFoundException);
-        boolean isInvalidPassword = (exception instanceof BadCredentialsException);
+        boolean isInvalidPassword = (exception instanceof BadCredentialsException); // !!!!
 
         session.setAttribute("invalidUsername", isInvalidUsername);
         session.setAttribute("invalidPassword", isInvalidPassword);

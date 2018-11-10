@@ -11,8 +11,8 @@ public class MemberDao {
     SqlSessionTemplate sqlSessionTemplate;
 
 
-    public Member exists(String name) {
-        return sqlSessionTemplate.selectOne("memberDao.existsMember", name);
+    public Member getMember(String name) {
+        return sqlSessionTemplate.selectOne("memberDao.getMember", name);
     }
 
     public String getAuthority(String name) {

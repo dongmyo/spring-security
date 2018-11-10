@@ -22,22 +22,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        String password = null;
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        Member member = memberDao.exists(username);
-
+        Member member = memberDao.getMember(username);
         if (member == null) {
-            throw new UsernameNotFoundException("username not found");
+            throw new UsernameNotFoundException("Not found username : " + username);
         }
-
+        password = member.getPassword();
         String authority = memberDao.getAuthority(username);
         if (authority == null) {
-            throw new UsernameNotFoundException("username not found");
+            throw new UsernameNotFoundException("No authority username : " + username);
         }
-
         authorities.add(new SimpleGrantedAuthority(authority));
 
-        return new User(username, member.getPassword(), authorities);
+        return User.withUsername(username).password(password).authorities(authorities).build();
     }
 
 }
