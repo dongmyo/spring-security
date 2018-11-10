@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         /*
-         * TODO : #8 직접 구현 하세요.
+         * TODO : #8 직접 구현 하세요. 直接実装します。
          */
 
         return new User(username, password, authorities);
