@@ -4,13 +4,13 @@
 <html>
 <head lang="ko">
     <meta charset="UTF-8">
-    <title>공개 프로젝트</title>
+    <title>Private Project</title>
 </head>
 <body>
-    <h1>공개 프로젝트</h1>
+    <h1>Private Project</h1>
 
     <jsp:include page="fragments/heading.jsp" />
 
-    <b>GUEST는 못 들어오지 말입니다.</b>
+    <b>Guests can not come in.</b>
 </body>
 </html>
