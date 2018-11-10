@@ -21,30 +21,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                .antMatchers("/private-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                 .antMatchers("/project/**").authenticated()
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                // TODO : #1 커스텀 로그인
-                .formLogin()
-                    .loginPage("/login/form")
-                    .usernameParameter("name")
-                    .passwordParameter("pwd")
-                    .loginProcessingUrl("/login/process")
-                    .failureHandler(loginFailureHandler())
-                    .and()
-                .logout()
+                // TODO : #1 커스텀 로그인 カスタムログイン
+            .formLogin()
+                .loginPage("/login/form")
+                .usernameParameter("name")
+                .passwordParameter("pwd")
+                .loginProcessingUrl("/login/process")
+                .failureHandler(loginFailureHandler())
                 .and()
-                .csrf().disable();
+            .logout()
+                .and()
+            .csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth
-                .authenticationProvider(authenticationProvider());
+            .authenticationProvider(authenticationProvider());
     }
 
     @Bean

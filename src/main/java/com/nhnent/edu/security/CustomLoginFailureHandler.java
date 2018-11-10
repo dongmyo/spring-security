@@ -12,7 +12,7 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         /*
-         * TODO : #4 직접 구현해보세요.
+         * TODO : #4 직접 구현 하세요. 直接実装します。
          */
     }
 
