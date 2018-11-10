@@ -5,28 +5,28 @@
 <html>
 <head lang="ko">
     <meta charset="UTF-8">
-    <title>메인</title>
+    <title>Main</title>
 </head>
 <body>
-    <h1>메인</h1>
+    <h1>Main</h1>
 
     <jsp:include page="fragments/heading.jsp" />
 
     <ul>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
-                <a href="/admin/manage">관리툴</a>
+                <a href="/admin/manage">Admin Tool</a>
             </li>
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
             <li>
-                <a href="/project/1">프로젝트</a>
+                <a href="/project/1">Public Project</a>
             </li>
         </sec:authorize>
         <sec:authorize access="hasAnyAuthority('ROLE_ADMIN','ROLE_MEMBER')">
             <li>
-                <a href="/public-project/2">공개 프로젝트</a>
+                <a href="/private-project/2">Private Project</a>
             </li>
         </sec:authorize>
     </ul>
