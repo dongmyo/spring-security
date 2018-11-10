@@ -4,13 +4,13 @@
              xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
                                  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- #TODO 4 : security configuration -->
+    <!-- TODO #4 : security configuration -->
     <http use-expressions="true">
-        <intercept-url pattern="/admin/**"          access="hasAuthority('ROLE_ADMIN')" />
-        <intercept-url pattern="/public-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
-        <intercept-url pattern="/project/**"        access="isAuthenticated()" />
-        <intercept-url pattern="/redirect-index"    access="isAuthenticated()" />
-        <intercept-url pattern="/**"                access="permitAll()" />
+        <intercept-url pattern="/admin/**"           access="hasAuthority('ROLE_ADMIN')" />
+        <intercept-url pattern="/private-project/**" access="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')" />
+        <intercept-url pattern="/project/**"         access="isAuthenticated()" />
+        <intercept-url pattern="/redirect-index"     access="isAuthenticated()" />
+        <intercept-url pattern="/**"                 access="permitAll()" />
 
         <csrf disabled="true" />
         <form-login />
@@ -20,9 +20,9 @@
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="admin"  password="12345" authorities="ROLE_ADMIN" />
-                <user name="member" password="67890" authorities="ROLE_MEMBER" />
-                <user name="guest"  password="abcde" authorities="ROLE_GUEST" />
+                <user name="admin"  password="admin" authorities="ROLE_ADMIN" />
+                <user name="member" password="member" authorities="ROLE_MEMBER" />
+                <user name="guest"  password="guest" authorities="ROLE_GUEST" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
