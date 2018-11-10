@@ -4,7 +4,6 @@ import com.nhnent.edu.config.RootContextConfig;
 import com.nhnent.edu.config.ServletContextConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-// TODO : #1 remove web.xml - dispatcherServlet
 // WebApplicationInitializer -> SpringServletContainerInitializer
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /*
