@@ -22,25 +22,24 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        /*
-         * TODO : #8 직접 구현 하세요.
-         */
+        String password = null;
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        Member member = memberDao.exists(username);
-
+        /*
+         * TODO : #8 직접 구현 하세요. 直接実装します。
+         */
+        Member member = memberDao.getMember(username);
         if (member == null) {
-            throw new UsernameNotFoundException("username not found");
+            throw new UsernameNotFoundException("Not found Member : " + username);
         }
-
+        password = member.getPassword();
         String authority = memberDao.getAuthority(username);
         if (authority == null) {
-            throw new UsernameNotFoundException("username not found");
+            throw new UsernameNotFoundException("No authority : " + username);
         }
-
         authorities.add(new SimpleGrantedAuthority(authority));
 
-        return new User(username, member.getPassword(), authorities);
+        return new User(username, password, authorities);
+//        return User.withUsername(username).password(password).authorities(authorities).build();
     }
 
 }
