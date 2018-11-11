@@ -18,28 +18,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                .antMatchers("/private-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                 .antMatchers("/project/**").authenticated()
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+            .formLogin()
                 .and()
-                .logout()
+            .logout()
                 .and()
-                .csrf().disable();
+            .csrf().disable();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // TODO : #4 jdbc-user-service
-        auth
-                .jdbcAuthentication()
-                    .dataSource(dataSource)
-                    .usersByUsernameQuery("SELECT MNAME, PWD, TRUE FROM MEMBERS WHERE MNAME = ?")
-                    .authoritiesByUsernameQuery("SELECT MNAME, AUTHORITY FROM AUTHORITIES WHERE MNAME = ?");
+        // TODO : #4 dbc-user-service
+//        auth
+//            .jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("SELECT MNAME, PWD, TRUE FROM MEMBERS WHERE MNAME = ?")
+//                .authoritiesByUsernameQuery("SELECT MNAME, AUTHORITY FROM AUTHORITIES WHERE MNAME = ?");
+
     }
 
 }
