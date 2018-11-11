@@ -4,21 +4,21 @@
 <html>
 <head lang="ko">
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>Login</title>
 </head>
 <body>
-<!-- TODO : #3 로그인 폼 -->
+<!-- TODO : #3 Login Form -->
 
-<h1>로그인</h1>
+<h1>Login</h1>
 <br />
 <br />
 
 <form method="post" action="/login/process">
-    이름 : <input type="text" name="name" value="" /><br />
-    비번 : <input type="password" name="pwd" value="" /><br />
+    ID : <input type="text" name="name" value="" /><br />
+    PW : <input type="password" name="pwd" value="" /><br />
     <br />
 
-    <input type="submit" value="로그인!" />
+    <input type="submit" value="Login!" />
 </form>
 <br />
 </body>
