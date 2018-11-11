@@ -20,25 +20,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+            .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/public-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
+                .antMatchers("/private-project/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_MEMBER")
                 .antMatchers("/project/**").authenticated()
                 .antMatchers("/redirect-index").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
+            .formLogin()
                 .and()
-                .logout()
+            .logout()
                 .and()
-                .csrf().disable();
+            .csrf().disable();
     }
 
     // TODO : #7 custom UserDetailsService configuration
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth
-                .authenticationProvider(authenticationProvider());
+            .authenticationProvider(authenticationProvider());
     }
 
     @Bean

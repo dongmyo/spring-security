@@ -1,8 +1,10 @@
 package com.nhnent.edu.security;
 
 import com.nhnent.edu.dao.MemberDao;
+import com.nhnent.edu.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         /*
-         * TODO : #8 직접 구현 하세요.
+         * TODO : #8 직접 구현 하세요. 直接実装します。
          */
 
         return new User(username, password, authorities);
