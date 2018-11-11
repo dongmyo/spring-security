@@ -4,28 +4,28 @@
 <html>
 <head lang="ko">
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>Login</title>
 </head>
 <body>
 
-<h1>로그인</h1>
+<h1>Login</h1>
 <br />
 <br />
 
-<!-- TODO : #3 로그인 에러 메세지 출력 -->
+<!-- TODO : #3 로그인 에러 메세지 출력 ログインエラーメッセージ出力 -->
 <c:if test="${param.error != null}">
-    <div style="color: red; ">등록되지 않은 아이디이거나 아이디 또는 비밀번호가 일치하지 않습니다.</div>
+    <div style="color: red; ">ID or password is invalid</div>
     <br />
 </c:if>
 
 <form method="post" action="/login/process">
-    이름 : <input type="text" name="name" value="" /><c:if test="${invalidUsername == true}"> <span style="color: red; ">등록되지 않은 아이디입니다
-    .</span></c:if><br />
-    비번 : <input type="password" name="pwd" value="" /><c:if test="${invalidPassword == true}"> <span style="color: red; ">비밀번호가 일치하지 않습니다
-    .</span></c:if><br />
+    ID : <input type="text" name="name" value="" /><c:if test="${invalidUsername == true}"> <span style="color: red; ">Not Found ID
+    </span></c:if><br />
+    PW : <input type="password" name="pwd" value="" /><c:if test="${invalidPassword == true}"> <span style="color: red; ">ID and password do not match.
+    </span></c:if><br />
     <br />
 
-    <input type="submit" value="로그인!" />
+    <input type="submit" value="Login!" />
 </form>
 <br />
 </body>
